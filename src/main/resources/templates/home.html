@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+</head>
+<body>
+<div th:replace="header"></div>
+<div style="text-align: center; margin-top: 20px;">
+    <h2>Welcome to the Library!</h2>
+    <br><br>
+    <div style="display: flex; justify-content: center;">
+        <div style="margin-right: 10px;">
+            <form th:action="@{|/books/book-create/users/${#authentication.principal.id}|}" th:method="get">
+                <div sec:authorize="hasAuthority('LIBRARIAN')">
+                    <button style="width: 200px;" type="submit">Create new Book</button>
+                </div>
+            </form>
+        </div>
+        <div>
+            <form th:action="@{|/books/categories/create/users/${#authentication.principal.id}|}" th:method="get">
+                <div sec:authorize="hasAuthority('LIBRARIAN')">
+                    <button style="width: 200px;" type="submit">Create new Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

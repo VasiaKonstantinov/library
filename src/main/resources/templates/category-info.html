@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Info about Category</title>
+</head>
+<body>
+<div th:replace="header"></div>
+<div style="margin-left: 20px;">
+    <div>
+        <h2>Info about Category</h2>
+        <table>
+            <tr>
+                <td>Id:</td>
+                <td>
+                    <b th:text="${category.id}"></b>
+                </td>
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td>
+                    <b th:text="${category.name}"></b>
+                </td>
+            </tr>
+        </table>
+
+        <br>
+        <h4>Books:</h4>
+        <br>
+        <table>
+            <tbody>
+            <tr th:each="book, i : ${category.books}">
+                <td th:text="${i.index + 1}"></td>
+                <td th:text="${book.title + ' ' + book.author}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <input name="categoryId" th:value="${category.id}" type="hidden"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>

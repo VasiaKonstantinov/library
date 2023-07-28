@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update existing User</title>
+</head>
+<body>
+<div th:replace="header"></div>
+<div style="margin-left: 20px;">
+    <h2>Update existing User</h2>
+</div>
+<div>
+    <form th:action="@{/users/{userId}/update(userId=${user.id})}" th:object="${user}" method="post">
+        <div>
+            <label for="id">ID:</label>
+            <input type="number" th:field="*{id}" id="id" disabled/>
+        </div>
+        <div>
+            <label for="first-name">First name:</label>
+            <input type="text" th:field="*{firstName}" id="first-name"/>
+            <small th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></small>
+        </div>
+        <div>
+            <label for="last-name">Last name:</label>
+            <input type="text" th:field="*{lastName}" id="last-name"/>
+            <small th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></small>
+        </div>
+        <div>
+            <label for="login">E-mail:</label>
+            <input type="email" th:field="*{email}" id="login"/>
+            <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+        </div>
+        <div>
+            <label for="old-password">Old Password:</label>
+            <input required type="password" name="oldPassword" id="old-password">
+        </div>
+        <div>
+            <label for="new-password">New Password:</label>
+            <input type="password" required th:field="*{password}" id="new-password"/>
+            <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+        </div>
+        <div sec:authorize="hasAuthority('LIBRARIAN')">
+            <label for="role">Role:</label>
+            <select th:field="*{role}" id="role">
+                <option th:each="role : *{role.values()}" th:value="${role}" th:text="${role.name.substring(0,1) + role.name.substring(1).toLowerCase()}"></option>
+            </select>
+            <small th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></small>
+        </div>
+        <div>
+            <input type="submit" value="Update"/>
+            <input type="reset" value="Clear"/>
+        </div>
+    </form>
+</div>
+</body>
+</html>

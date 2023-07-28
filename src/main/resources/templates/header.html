@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Library</title>
+</head>
+
+<style>
+    .user-info {
+        float: right;
+        margin-right: 20px;
+        margin-top: 5px;
+    }
+
+    .divider {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+    }
+</style>
+
+<body>
+<div xmlns:th="http://www.thymeleaf.org">
+    <nav>
+        <a th:href="@{/home}">Home page</a>
+        <a th:href="@{/books/categories/all}" style="margin-left: 10px; margin-right: 10px;">Categories</a>
+        <a th:href="@{/books/all}">Books</a>
+
+        <!-- Блок із зміненими відступами -->
+        <div class="user-info">
+            <span th:if="${#authentication.principal}">
+                <a th:href="@{/users/{userId}/read(userId=${#authentication.principal.id})}">
+                    <span th:text="${#authentication.principal.firstName}">Name</span>
+                </a>
+                <form th:action="@{/logout}" method="post" style="display: inline; margin-left: 10px;">
+                    <input type="submit" value="LogOut">
+                </form>
+            </span>
+            <span th:unless="${#authentication.principal}">
+                <a th:href="@{/login}">Log in</a>
+            </span>
+        </div>
+
+        <hr class="divider">
+    </nav>
+</div>
+</body>
+
+</html>
